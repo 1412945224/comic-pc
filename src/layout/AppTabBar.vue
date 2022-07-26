@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref } from 'vue'
+import { defineComponent, ref } from 'vue' // reactive, computed,
 import AppTabBarComiclist from './AppTabBarComiclist.vue'
 export default defineComponent({
   name: 'AppTabBar',
