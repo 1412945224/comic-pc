@@ -1,6 +1,9 @@
 <template>
   <div class="app-contain">
+    <!-- 头像 与 历史 功能能组件 -->
     <AppTabBar />
+
+    <!-- 主页左侧菜单 -->
     <aside class="app-contain__aside" :class="{ hide: !asideVisible }">
       <div
         class="switch"
@@ -8,26 +11,30 @@
         @click="asideVisible = !asideVisible"
       ></div>
       <b v-show="asideVisible" class="animate__jello">{{ WEB_NAME }}</b>
+      <!-- 菜单列表 -->
       <AppAsideBar v-show="asideVisible" />
     </aside>
+
+    <!-- 右侧内容  -->
     <main class="app-contain__main">
       <AppRouter />
     </main>
 
-    <Live2d
+    <!-- 动态小人 -->
+    <!-- <Live2d
       ref="live2dComp"
       v-model:visible="koharu.visible"
       @click="live2dAction"
-    />
+    /> -->
   </div>
 </template>
 
 <script lang="ts">
 import '@/assets/icon/iconfont.css'
 import '@/assets/icon/iconfont.js'
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, ref } from 'vue' // onMounted,
 
-import Live2d from '@/components/Live2d/Live2d.vue'
+// import Live2d from '@/components/Live2d/Live2d.vue'
 import AppAsideBar from '@/layout/AppAsideBar.vue'
 import AppRouter from '@/layout/AppRouter.vue'
 import AppTabBar from '@/layout/AppTabBar.vue'
@@ -35,7 +42,7 @@ import AppTabBar from '@/layout/AppTabBar.vue'
 import { WEB_NAME } from './common/static'
 import { useIsDev } from './hooks/utils'
 import { useSystemConfigStore } from './stores/systemConfig.store'
-import { useKoharu } from '@/stores/koharu.store'
+// import { useKoharu } from '@/stores/koharu.store'
 
 function provideModule() {
   const { isDev } = useIsDev()
@@ -49,37 +56,39 @@ function asideModule() {
     asideVisible
   }
 }
-function live2dModule() {
-  const live2dComp = ref<InstanceType<typeof Live2d>>()
-  const koharu = useKoharu()
+// 动态小人
 
-  const live2dAction = () => {
-    live2dComp.value?.motion('else')
-  }
-  onMounted(() => {
-    live2dComp.value?.initLive2d({
-      model: '/live2dModels/koharu/koharu.model.json',
-      version: 2,
-      size: {
-        width: 210,
-        height: 260
-      }
-    })
-  })
-  return {
-    live2dComp,
-    live2dAction,
-    koharu
-  }
-}
+// function live2dModule() {
+//   const live2dComp = ref<InstanceType<typeof Live2d>>()
+//   const koharu = useKoharu()
+
+//   const live2dAction = () => {
+//     live2dComp.value?.motion('else')
+//   }
+//   onMounted(() => {
+//     live2dComp.value?.initLive2d({
+//       model: '/live2dModels/koharu/koharu.model.json',
+//       version: 2,
+//       size: {
+//         width: 210,
+//         height: 260
+//       }
+//     })
+//   })
+//   return {
+//     live2dComp,
+//     live2dAction,
+//     koharu
+//   }
+// }
 
 export default defineComponent({
   name: 'Comic',
   components: {
     AppAsideBar,
     AppRouter,
-    AppTabBar,
-    Live2d
+    AppTabBar
+    // Live2d
   },
   setup() {
     const systemConfigStore = useSystemConfigStore()
@@ -87,8 +96,8 @@ export default defineComponent({
     return {
       WEB_NAME,
       ...asideModule(),
-      ...provideModule(),
-      ...live2dModule()
+      ...provideModule()
+      // ...live2dModule()
     }
   }
 })

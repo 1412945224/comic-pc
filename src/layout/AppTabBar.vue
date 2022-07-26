@@ -1,5 +1,6 @@
 <template>
   <div class="app-tab__bar">
+    <!-- 历史 icon  -->
     <div v-click-outside="() => (comiclistVisible = false)" class="comiclist">
       <Icon
         class="tool"
@@ -9,6 +10,7 @@
       />
       <AppTabBarComiclist v-model:visible="comiclistVisible" />
     </div>
+    <!-- 头像 -->
     <div class="avatar">
       <BaseImg src="https://api.adicw.cn/uploads/UserAvatar/default.jpg" />
     </div>
