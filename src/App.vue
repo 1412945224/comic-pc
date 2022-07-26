@@ -5,12 +5,16 @@
 
     <!-- 主页左侧菜单 -->
     <aside class="app-contain__aside" :class="{ hide: !asideVisible }">
+      <!-- 隐藏 与 展开 的开关 -->
       <div
         class="switch"
         :title="asideVisible ? '隐藏' : '展开'"
         @click="asideVisible = !asideVisible"
       ></div>
+
+      <!-- 名称 -->
       <b v-show="asideVisible" class="animate__jello">{{ WEB_NAME }}</b>
+
       <!-- 菜单列表 -->
       <AppAsideBar v-show="asideVisible" />
     </aside>
